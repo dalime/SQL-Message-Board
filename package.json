@@ -1,0 +1,27 @@
+{
+  "name": "messageboard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "6.3.1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "lodash": "^4.14.1",
+    "moment": "^2.14.1",
+    "morgan": "^1.7.0",
+    "path": "^0.12.7",
+    "pug": "^2.0.0-beta4",
+    "request": "^2.74.0",
+    "uuid": "^2.0.2"
+  }
+}

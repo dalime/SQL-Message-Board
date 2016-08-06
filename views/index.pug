@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+html(lang="en")
+head
+  meta(charset="UTF-8")
+  title= title
+  link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", rel="stylesheet", integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u", crossorigin="anonymous")
+  script(src='https://code.jquery.com/jquery-3.1.0.min.js', integrity='sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=', crossorigin='anonymous')
+  script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js", integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa", crossorigin="anonymous")
+  script(src="main.js")
+
+body
+  .container
+    .row
+      .col-xs-9.col-sm-10.col-md-11.col-lg-11
+        h1 #{title}
+      .col-xs-3.col-sm-2.col-md-1.col-lg-1
+        button.btn.btn-primary.create Create New Message
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        if messages.length
+        table.table
+          thead
+            tr
+              th Title
+              th Message
+              th Time
+              th Author
+              th Edit
+              th Delete
+          tbody#messageList
+            each message in messages
+              tr(data-id= message.id)
+                td= message.title
+                td= message.text
+                td= message.time
+                td= message.author
+                td
+                  button.btn.btn-default.btn-xs.edit Edit
+                td
+                  button.btn.btn-danger.btn-xs.delete X
+
+    #messageCreateModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel')
+      form#createMessageForm
+        .modal-dialog.modal-lg(role='document')
+          .modal-content
+            .modal-header
+              button.close(type='button', data-dismiss='modal', aria-label='Close')
+                span(aria-hidden='true') ×
+              h4#createMessageLabel.modal-title Create Message
+            .modal-body
+              .form-group
+                .container
+                  .row
+                    label Title:
+                    input#createTitle.form-control(type='text', style='width: 450px', required='')
+                  .row
+                    label Message:
+                    textarea#createText.form-control(cols='30', rows='6', style="width: 450px", required='')
+                  .row
+                    label Author:
+                    input#createAuthor.form-control(type='text', style='width: 450px', required='')
+            .modal-footer
+              button#btnClose.btn.btn-default(type='button', data-dismiss='modal') Close
+              button#btnAddMessage.btn.btn-primary(type='button', data-dismiss='modal') Add Message
+
+    #messageEditModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel')
+      form#editMessageForm
+        .modal-dialog.modal-lg(role='document')
+          .modal-content
+            .modal-header
+              button.close(type='button', data-dismiss='modal', aria-label='Close')
+                span(aria-hidden='true') ×
+              h4#editMessageLabel.modal-title Edit Message
+            .modal-body
+              .form-group
+                .container
+                  .row
+                    label Title:
+                    input#editTitle.form-control(type='text', style='width: 450px', required='')
+                  .row
+                    label Message:
+                    textarea#editText.form-control(cols='30', rows='6', style='width: 450px', required='')
+                  .row
+                    label Author:
+                    input#editAuthor.form-control(type='text', style='width: 450px', required='')
+            .modal-footer
+              button#btnCancel.btn.btn-default(type='button', data-dismiss='modal') Cancel
+              button#btnEditMessage.btn.btn-primary(type='button', data-dismiss='modal') Save Changes
+
+    table.hidden
+      tr#template
+        td.msgTitle
+        td.msgText
+        td.msgTime
+        td.msgAuthor
+        td
+          button.btn.btn-default.btn-xs.edit !
+        td
+          button.btn.btn-danger.btn-xs.delete X
