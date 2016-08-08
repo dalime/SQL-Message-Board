@@ -1,7 +1,6 @@
 require('dotenv').config();
 
 const PORT = process.env.PORT || 8000;
-
 const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
@@ -10,7 +9,6 @@ const Message = require('./models/message');
 const app = express();
 
 // GENERAL MIDDLEWARE
-
 app.set('view engine', 'pug');
 app.set('views', './views');
 
@@ -55,7 +53,6 @@ app.route('/messages/:id')
   // GET /messages/5 - get one message
     let messageId = req.params.id;
     let getObj = req.body;
-
     Message.getMessage(messageId, function(err, message) {
       if (err) {
         res.status(400).send(err);
@@ -68,7 +65,6 @@ app.route('/messages/:id')
   // PUT /messages/5 - update one message
     let messageId = req.params.id;
     let updateObj = req.body;
-
     Message.updateMessage(messageId, updateObj, function(err, newMessage) {
       res.status(err ? 400 : 200).send(err) || newMessage;
     });
@@ -80,7 +76,6 @@ app.route('/messages/:id')
         res.status(err ? 400 : 200).send(err);
     });
   });
-
 ////////////////////////////////
 app.listen(PORT, err => {
   console.log(err || `Server listening on port ${PORT}`);
