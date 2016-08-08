@@ -39,7 +39,6 @@ function renderList() {
 }
 
 function addMessage() {
-
   let $newTitle = $('#createTitle').val();
   let $newText = $('#createText').val();
   let $newAuthor = $('#createAuthor').val();
@@ -95,7 +94,6 @@ function editMessage() {
     console.log('err: ', err);
   })
 }
-
 
 function openCreateMessageModal() {
   $('#messageCreateModal').modal();
