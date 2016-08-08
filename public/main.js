@@ -51,28 +51,30 @@ function addMessage() {
   let newObj = {title: $newTitle, text: $newText, time: '', author: $newAuthor};
 
   $.post('/messages', newObj)
-  .done(givenID => {
-    console.log(givenID);
-    renderList();
-  })
-  .fail(err => {
-    console.error('error: ', err);
-  });
+    .done(givenID => {
+      console.log(givenID);
+      renderList();
+    })
+    .fail(err => {
+      console.error('error: ', err);
+    });
 }
 
 let $messageEditId;
 let $messageEditTime;
+
 function openEditMessageModal() {
   $messageEditId = $(this).closest('tr').data('id');
   $.get(`/messages/${$messageEditId}`)
-  .done(message => {
-    $('#messageEditModal').find('#editTitle').val(message.title);
-    $('#messageEditModal').find('#editText').val(message.text);
-    $('#messageEditModal').find('#editTime').val(message.time);
-    $messageEditTime = message.time;
-    $('#messageEditModal').find('#editAuthor').val(message.author);
-    $('#messageEditModal').modal();
-  })
+    .done(message => {
+      $('#editMessageForm').find('#editTitle').val(message.title);
+      $('#editMessageForm').find('#editText').val(message.text);
+      $('#editMessageForm').find('#editAuthor').val(message.author);
+      $('#messageEditModal').modal();
+    })
+    .fail(err => {
+      console.log('err: ', err);
+    })
 }
 
 function editMessage() {
@@ -85,7 +87,7 @@ function editMessage() {
     method: 'PUT',
     data: updateMessage,
   })
-  .done((data) => {
+  .done(data => {
     console.log('Message updated!');
     renderList();
   })

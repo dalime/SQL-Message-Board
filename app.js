@@ -11,13 +11,8 @@ const app = express();
 
 // GENERAL MIDDLEWARE
 
-
 app.set('view engine', 'pug');
-
-
-
 app.set('views', './views');
-
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: true }));
@@ -58,11 +53,19 @@ app.route('/messages')
 app.route('/messages/:id')
   .get((req, res) => {
   // GET /messages/5 - get one message
-    res.send(`Here is message #${req.params.id}!`);
+    let messageId = req.params.id;
+    let getObj = req.body;
+
+    Message.getMessage(messageId, function(err, message) {
+      if (err) {
+        res.status(400).send(err);
+      } else {
+        res.send(message);
+      }
+    })
   })
   .put((req, res) => {
   // PUT /messages/5 - update one message
-
     let messageId = req.params.id;
     let updateObj = req.body;
 
@@ -73,12 +76,9 @@ app.route('/messages/:id')
   .delete((req, res) => {
   // DELETE /messages/5 - delete one message
   let messageId = req.params.id;
-
-    Message.deleteMessage(messageId => {
-      res.status(err ? 400 : 200).send(err);
+    Message.deleteMessage(messageId, function(err, status) {
+        res.status(err ? 400 : 200).send(err);
     });
-
-
   });
 
 ////////////////////////////////
